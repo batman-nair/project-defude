@@ -24,7 +24,10 @@ def preprocess(img):
     sharpen_img = cv2.filter2D(gray_img, -1, kernel)
 
     # Histogram Equalization
-    equ_img = cv2.equalizeHist(sharpen_img)
+    # equ_img = cv2.equalizeHist(sharpen_img)
+    # clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+    clahe = cv2.createCLAHE()
+    equ_img = clahe.apply(sharpen_img)
 
     # Resizing
     resized_img = cv2.resize(equ_img, (512,256), cv2.INTER_AREA)

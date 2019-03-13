@@ -25,15 +25,10 @@ class DepthDataloader(object):
 
         split_line = tf.string_split([line]).values
 
-        # we load only one image for test, except if we trained a stereo model
-        if mode == 'test' and not self.params.do_stereo:
+        # we load only one image for test
+        if mode == 'test':
             left_image_path  = tf.string_join([self.data_path, split_line[0]])
             left_image_o  = self.read_image(left_image_path)
-        else:
-            left_image_path  = tf.string_join([self.data_path, split_line[0]])
-            right_image_path = tf.string_join([self.data_path, split_line[1]])
-            left_image_o  = self.read_image(left_image_path)
-            right_image_o = self.read_image(right_image_path)
 
         if mode == 'train':
             # randomly flip images
@@ -57,10 +52,6 @@ class DepthDataloader(object):
         elif mode == 'test':
             self.left_image_batch = tf.stack([left_image_o,  tf.image.flip_left_right(left_image_o)],  0)
             self.left_image_batch.set_shape( [2, None, None, 3])
-
-            if self.params.do_stereo:
-                self.right_image_batch = tf.stack([right_image_o,  tf.image.flip_left_right(right_image_o)],  0)
-                self.right_image_batch.set_shape( [2, None, None, 3])
 
     def augment_image_pair(self, left_image, right_image):
         # randomly shift gamma
@@ -93,12 +84,6 @@ class DepthDataloader(object):
         file_cond = tf.equal(file_extension, 'jpg')
 
         image  = tf.cond(file_cond, lambda: tf.image.decode_jpeg(tf.read_file(image_path)), lambda: tf.image.decode_png(tf.read_file(image_path)))
-
-        # if the dataset is cityscapes, we crop the last fifth to remove the car hood
-        if self.dataset == 'cityscapes':
-            o_height    = tf.shape(image)[0]
-            crop_height = (o_height * 4) // 5
-            image  =  image[:crop_height,:,:]
 
         image  = tf.image.convert_image_dtype(image,  tf.float32)
         image  = tf.image.resize_images(image,  [self.params.height, self.params.width], tf.image.ResizeMethod.AREA)

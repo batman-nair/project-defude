@@ -11,7 +11,7 @@ import time
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
 import imageio
-import scipy.misc
+import cv2
 import matplotlib.pyplot as plt
 
 from depth_model import *
@@ -20,7 +20,7 @@ from average_gradients import *
 
 parser = argparse.ArgumentParser(description='Depth TensorFlow implementation.')
 
-parser.add_argument('--encoder',          type=str,   help='type of encoder, vgg or resnet50', default='vgg')
+parser.add_argument('--encoder',          type=str,   help='type of encoder, resnet50', default='resnet50')
 parser.add_argument('--image_path',       type=str,   help='path to the image', required=True)
 parser.add_argument('--checkpoint_path',  type=str,   help='path to a specific checkpoint to load', required=True)
 parser.add_argument('--input_height',     type=int,   help='input height', default=256)
@@ -44,9 +44,10 @@ def test_simple(params):
     left  = tf.placeholder(tf.float32, [2, args.input_height, args.input_width, 3])
     model = DepthModel(params, "test", left, None)
 
-    input_image = imageio.imread(args.image_path, pilmode="RGB")
+    input_image = cv2.imread(args.image_path)
+    input_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
     original_height, original_width, num_channels = input_image.shape
-    input_image = scipy.misc.imresize(input_image, [args.input_height, args.input_width], interp='lanczos')
+    input_image = cv2.resize(input_image, dsize = (args.input_width, args.input_height))
     input_image = input_image.astype(np.float32) / 255
     input_images = np.stack((input_image, np.fliplr(input_image)), 0)
 
@@ -74,7 +75,7 @@ def test_simple(params):
     output_name = os.path.splitext(os.path.basename(args.image_path))[0]
 
     np.save(os.path.join(output_directory, "{}_disp.npy".format(output_name)), disp_pp)
-    disp_to_img = scipy.misc.imresize(disp_pp.squeeze(), [original_height, original_width])
+    disp_to_img = cv2.resize(disp_pp.squeeze(), dsize = (original_width, original_height))
     plt.imsave(os.path.join(output_directory, "{}_disp.png".format(output_name)), disp_to_img, cmap='plasma')
 
     print('done!')

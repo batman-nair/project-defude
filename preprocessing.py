@@ -35,16 +35,20 @@ def preprocess(img):
     prep_img = resized_img
     return prep_img
 
-
 # Run the preprocessing functions on a single image with before and after
 # Escape Key terminates the windows
+# The output of the file can be written to a file by setting output param
 # Params
 #   file: Filename of the image as string
 #   waitTime: How long the image should be shown in ms
+#   output: Write the preprocessed file here
 # Returns: false if terminated using Esc key else true
-def preprocess_single(file, waitTime = 0):
+def preprocess_single(file, waitTime = 0, output = ""):
     img = cv2.imread(file)
     prep_img = preprocess(img)
+
+    if output:
+        cv2.imwrite(output, prep_img)
 
     cv2.imshow("Original Image", img)
     cv2.imshow("Preprocessed Image", prep_img)

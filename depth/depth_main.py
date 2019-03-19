@@ -166,57 +166,6 @@ def train(params):
 
         train_saver.save(sess, args.log_directory + '/' + args.model_name + '/model', global_step=num_total_steps)
 
-def test(params):
-    """Test function."""
-
-    dataloader = DepthDataloader(args.data_path, args.filenames_file, params, args.dataset, args.mode)
-    left  = dataloader.left_image_batch
-    right = dataloader.right_image_batch
-
-    model = DepthModel(params, args.mode, left, right)
-
-    # SESSION
-    config = tf.ConfigProto(allow_soft_placement=True)
-    sess = tf.Session(config=config)
-
-    # SAVER
-    train_saver = tf.train.Saver()
-
-    # INIT
-    sess.run(tf.global_variables_initializer())
-    sess.run(tf.local_variables_initializer())
-    coordinator = tf.train.Coordinator()
-    threads = tf.train.start_queue_runners(sess=sess, coord=coordinator)
-
-    # RESTORE
-    if args.checkpoint_path == '':
-        restore_path = tf.train.latest_checkpoint(args.log_directory + '/' + args.model_name)
-    else:
-        restore_path = args.checkpoint_path.split(".")[0]
-    train_saver.restore(sess, restore_path)
-
-    num_test_samples = count_text_lines(args.filenames_file)
-
-    print('now testing {} files'.format(num_test_samples))
-    disparities    = np.zeros((num_test_samples, params.height, params.width), dtype=np.float32)
-    disparities_pp = np.zeros((num_test_samples, params.height, params.width), dtype=np.float32)
-    for step in range(num_test_samples):
-        disp = sess.run(model.disp_left_est[0])
-        disparities[step] = disp[0].squeeze()
-        disparities_pp[step] = post_process_disparity(disp.squeeze())
-
-    print('done.')
-
-    print('writing disparities.')
-    if args.output_directory == '':
-        output_directory = os.path.dirname(args.checkpoint_path)
-    else:
-        output_directory = args.output_directory
-    np.save(output_directory + '/disparities.npy',    disparities)
-    np.save(output_directory + '/disparities_pp.npy', disparities_pp)
-
-    print('done.')
-
 def main(_):
 
     params = depth_parameters(
@@ -236,8 +185,6 @@ def main(_):
 
     if args.mode == 'train':
         train(params)
-    elif args.mode == 'test':
-        test(params)
 
 if __name__ == '__main__':
     tf.app.run()

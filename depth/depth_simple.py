@@ -10,7 +10,6 @@ import re
 import time
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
-import imageio
 import cv2
 import matplotlib.pyplot as plt
 
@@ -62,7 +61,6 @@ def test_simple(params):
     sess.run(tf.global_variables_initializer())
     sess.run(tf.local_variables_initializer())
     coordinator = tf.train.Coordinator()
-    # threads = tf.train.start_queue_runners(sess=sess, coord=coordinator)
 
     # RESTORE
     restore_path = args.checkpoint_path.split(".")[0]
@@ -74,8 +72,9 @@ def test_simple(params):
     output_directory = os.path.dirname(args.image_path)
     output_name = os.path.splitext(os.path.basename(args.image_path))[0]
 
-    np.save(os.path.join(output_directory, "{}_disp.npy".format(output_name)), disp_pp)
+    # np.save(os.path.join(output_directory, "{}_disp.npy".format(output_name)), disp_pp)
     disp_to_img = cv2.resize(disp_pp.squeeze(), dsize = (original_width, original_height))
+    np.save(os.path.join(output_directory, "{}_disp.npy".format(output_name)), disp_to_img)
     plt.imsave(os.path.join(output_directory, "{}_disp.png".format(output_name)), disp_to_img, cmap='plasma')
 
     print('done!')

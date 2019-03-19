@@ -1,3 +1,4 @@
+from __future__ import absolute_import, division, print_function
 from collections import namedtuple
 
 import numpy as np
@@ -12,7 +13,6 @@ depth_parameters = namedtuple('parameters',
                         'batch_size, '
                         'num_threads, '
                         'num_epochs, '
-                        'do_stereo, '
                         'wrap_mode, '
                         'use_deconv, '
                         'alpha_image_loss, '
@@ -217,10 +217,7 @@ class DepthModel(object):
                 if self.mode == 'train':
                     self.right_pyramid = self.scale_pyramid(self.right, 4)
 
-                if self.params.do_stereo:
-                    self.model_input = tf.concat([self.left, self.right], 3)
-                else:
-                    self.model_input = self.left
+                self.model_input = self.left
 
                 #build model
                 if self.params.encoder == 'resnet50':

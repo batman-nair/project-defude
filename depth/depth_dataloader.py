@@ -9,10 +9,9 @@ def string_length_tf(t):
 class DepthDataloader(object):
     """Depth dataloader"""
 
-    def __init__(self, data_path, filenames_file, params, dataset, mode):
+    def __init__(self, data_path, filenames_file, params, mode):
         self.data_path = data_path
         self.params = params
-        self.dataset = dataset
         self.mode = mode
 
         self.left_image_batch  = None

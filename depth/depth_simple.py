@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function
-
 # only keep warnings and errors
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='0'
@@ -88,7 +86,6 @@ def main(_):
         batch_size=2,
         num_threads=1,
         num_epochs=1,
-        do_stereo=False,
         wrap_mode="border",
         use_deconv=False,
         alpha_image_loss=0,

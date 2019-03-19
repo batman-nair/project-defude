@@ -18,7 +18,6 @@ parser = argparse.ArgumentParser(description='Depth TensorFlow implementation.')
 parser.add_argument('--mode',                      type=str,   help='train or test', default='train')
 parser.add_argument('--model_name',                type=str,   help='model name', default='depth')
 parser.add_argument('--encoder',                   type=str,   help='type of encoder, resnet50', default='resnet50')
-parser.add_argument('--dataset',                   type=str,   help='dataset to train on, kitti, or cityscapes', default='kitti')
 parser.add_argument('--data_path',                 type=str,   help='path to the data', required=True)
 parser.add_argument('--filenames_file',            type=str,   help='path to the filenames text file', required=True)
 parser.add_argument('--input_height',              type=int,   help='input height', default=256)
@@ -29,7 +28,6 @@ parser.add_argument('--learning_rate',             type=float, help='initial lea
 parser.add_argument('--lr_loss_weight',            type=float, help='left-right consistency weight', default=1.0)
 parser.add_argument('--alpha_image_loss',          type=float, help='weight between SSIM and L1 in the image loss', default=0.85)
 parser.add_argument('--disp_gradient_loss_weight', type=float, help='disparity smoothness weigth', default=0.1)
-parser.add_argument('--do_stereo',                             help='if set, will train the stereo model', action='store_true')
 parser.add_argument('--wrap_mode',                 type=str,   help='bilinear sampler wrap mode, edge or border', default='border')
 parser.add_argument('--use_deconv',                            help='if set, will use transposed convolutions', action='store_true')
 parser.add_argument('--num_gpus',                  type=int,   help='number of GPUs to use for training', default=1)
@@ -81,7 +79,7 @@ def train(params):
         print("total number of samples: {}".format(num_training_samples))
         print("total number of steps: {}".format(num_total_steps))
 
-        dataloader = DepthDataloader(args.data_path, args.filenames_file, params, args.dataset, args.mode)
+        dataloader = DepthDataloader(args.data_path, args.filenames_file, params, args.mode)
         left  = dataloader.left_image_batch
         right = dataloader.right_image_batch
 
@@ -173,7 +171,6 @@ def main(_):
         batch_size=args.batch_size,
         num_threads=args.num_threads,
         num_epochs=args.num_epochs,
-        do_stereo=args.do_stereo,
         wrap_mode=args.wrap_mode,
         use_deconv=args.use_deconv,
         alpha_image_loss=args.alpha_image_loss,

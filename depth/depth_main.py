@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function
-
 # only keep warnings and errors
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='1'

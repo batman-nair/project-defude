@@ -4,7 +4,7 @@ import cv2
 import copy
 
 IMG_DIR = "../images/"
-FILENAME = "sample0"
+FILENAME = "sample2"
 
 class DefocuserObject():
 
@@ -62,7 +62,16 @@ class DefocuserObject():
         print("Generating blurred versions for image")
         self.blur_imgs.append(self.img)
         for ker_size in range(5, 22, 4):
-            self.blur_imgs.append(cv2.GaussianBlur(self.img, (ker_size,ker_size), 0))
+            # Average blur
+            self.blur_imgs.append(cv2.blur(self.img, (ker_size,ker_size)))
+            # Gaussian blur
+            # self.blur_imgs.append(cv2.GaussianBlur(self.img, (ker_size,ker_size), 0))
+            # Median blur
+            # self.blur_imgs.append(cv2.medianBlur(self.img, ker_size))
+
+            # Bilateral blur
+            # self.blur_imgs.append(cv2.bilateralFilter(self.img, ker_size, 75, 75))
+
 
         # Show blurred images
         # for index, blur_img in enumerate(self.blur_imgs):

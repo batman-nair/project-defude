@@ -1,17 +1,32 @@
-import scipy.io as scio
-import numpy as np
-import cv2
+import argparse
 import copy
+import cv2
+import numpy as np
+import os
 
-IMG_DIR = "../images/"
-FILENAME = "sample2"
+parser = argparse.ArgumentParser(description='Defocus using depth map.')
+
+parser.add_argument('--image_path', type=str, help='path to input image', default='../images/sample2.png')
+parser.add_argument('--blur_method', type=str, help='The type of blur to be applied', default='gaussian')
+
+args = parser.parse_args()
+
+PATH = args.image_path
+FILENAME = os.path.basename(PATH).split('.')[0]
+IMG_DIR = os.path.dirname(PATH)
+BLUR = args.blur_method
+blur_function = {
+        'avg_blur': lambda img,ker_size: cv2.blur(img, (ker_size,ker_size)),
+        'gaussian': lambda img,ker_size: cv2.GaussianBlur(img, (ker_size,ker_size), 0),
+        'median': lambda img,ker_size: cv2.medianBlur(img, ker_size),
+        'bilateral': lambda img,ker_size: cv2.bilateralFilter(img, ker_size, 75, 75),
+        }
 
 class DefocuserObject():
 
     def __init__(self):
-        self.depth_data = np.load(IMG_DIR + FILENAME + "_disp.npy")
-        self.depth_img = cv2.imread(IMG_DIR + FILENAME + "_disp.png")
-        self.img = cv2.imread(IMG_DIR + FILENAME + ".png")
+        self.depth_data = np.load(os.path.join(IMG_DIR, FILENAME + "_disp.npy"))
+        self.img = cv2.imread(os.path.join(IMG_DIR, FILENAME + ".png"))
         self.blur_imgs = []
 
 
@@ -46,7 +61,7 @@ class DefocuserObject():
 
             final_image = np.uint8(final_image)
             cv2.imshow("Final", final_image)
-            cv2.imwrite(IMG_DIR + FILENAME + "_defocus.png", final_image)
+            cv2.imwrite(os.path.join(IMG_DIR, FILENAME + "_defocus.png"), final_image)
 
             #     print("x: ", x, ", y: ", y, "Depth value: ", self.norm_depth_data[y][x])
 
@@ -62,8 +77,11 @@ class DefocuserObject():
         print("Generating blurred versions for image")
         self.blur_imgs.append(self.img)
         for ker_size in range(5, 22, 4):
+            self.blur_imgs.append(blur_function[BLUR](self.img, ker_size))
+
             # Average blur
-            self.blur_imgs.append(cv2.blur(self.img, (ker_size,ker_size)))
+            # self.blur_imgs.append(cv2.blur(self.img, (ker_size,ker_size)))
+
             # Gaussian blur
             # self.blur_imgs.append(cv2.GaussianBlur(self.img, (ker_size,ker_size), 0))
             # Median blur

@@ -54,11 +54,14 @@ class DefocuserObject():
         self.norm_depth_data = self.norm_depth_data / self.norm_depth_data.max()
 
     # Mouse callback function
-    # The point of the click is taken as the point of focus
-    # The depth map is then normalized around the point of focus after which the defocusing of the image is done by sectioning and masking
+    # The point of the click is taken as the point of focus and defocusing is performed around it
     def depth_callback(self, event, x, y, flags, param):
         if event == cv2.EVENT_LBUTTONDOWN:
             self.point_of_focus = self.depth_data[y][x]
+            self.defocus_with_pof()
+
+    # The depth map is normalized around the point of focus after which the defocusing of the image is done by sectioning and masking
+    def defocus_with_pof(self):
             print("Point of focus: ", self.point_of_focus)
             self.normalize_pof()
             print("Normalized depth data around point of focus")
@@ -77,11 +80,16 @@ class DefocuserObject():
             cv2.imshow("Final", final_image)
             cv2.imwrite(os.path.join(self.img_dir, self.img_name + "_defocus.png"), final_image)
 
-            #     print("x: ", x, ", y: ", y, "Depth value: ", self.norm_depth_data[y][x])
+
+    def set_pof_from_coord(self, norm_x, norm_y):
+        h, w = self.depth_data.shape[:2]
+        self.point_of_focus = self.depth_data[int(h * norm_y)][int(w * norm_x)]
+        self.defocus_with_pof()
+
 
     # Creates a window to display the original image
     # The callback function is attached to this window
-    def view_image(self):
+    def view_image_for_blur(self):
         cv2.namedWindow('image')
         cv2.setMouseCallback('image', self.depth_callback)
 
@@ -107,4 +115,5 @@ if __name__ == "__main__":
     BLUR = args.blur_method
 
     defocuser = DefocuserObject(image_path = PATH, blur_method = BLUR)
-    defocuser.view_image()
+    # defocuser.set_pof_from_coord(0.9, 0.9)
+    defocuser.view_image_for_blur()

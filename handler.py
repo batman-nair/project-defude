@@ -4,22 +4,6 @@ import threading
 import os
 from defocus.defocus import DefocuserObject
 
-class Wait(object):
-    def __init__(self,handler,status_line):
-        self.handler = handler
-        self.status_line = status_line
-        self.prev_status_line = self.handler.status_line.get_text()
-
-    def __enter__(self):
-        print("entering context",self.status_line)
-        self.handler.status_spinner.start()
-        self.handler.status_line.set_text(self.status_line)
-    
-    def __exit__(self, *args):
-        print("exiting context")
-        self.handler.status_spinner.stop()
-        self.handler.status_line.set_text(self.prev_status_line)
-
 
 class Handler(object):
     def __init__(self,builder,checkpoint_path):

@@ -39,6 +39,7 @@ class DefudeGui(object):
         self.pof_status_line = self.builder.get_object('pof-status-line')
         self.pof_status_spinner = self.builder.get_object('pof-status-spinner')
         self.result_image = self.builder.get_object('result-image')
+        self.header_bar = self.builder.get_object('main-header-bar')
 
         page_ids = (
             'start-page',
@@ -203,7 +204,6 @@ class DefudeGui(object):
 
 
     def show(self):
-        self.main_window.set_title(self.WINDOW_TITLE)
         self.about_window.set_title('About')
         self.main_window.show_all()
         self.about_window.show_all()

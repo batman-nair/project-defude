@@ -77,7 +77,7 @@ class DefocuserObject():
                 final_image = final_image + masked_img
 
             final_image = np.uint8(final_image)
-            cv2.imshow("Final", final_image)
+            # cv2.imshow("Final", final_image)
             cv2.imwrite(os.path.join(self.img_dir, self.img_name + "_defocus.png"), final_image)
 
 

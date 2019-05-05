@@ -22,8 +22,9 @@ class DefudeGui(object):
 
         # all the available windows
         self.main_window = self.builder.get_object('main-window')
-        self.about_window = self.builder.get_object('about-window')
-        self.help_window = self.builder.get_object('help-window')
+        self.about_dialog = self.builder.get_object('about-dialog')
+        self.help_dialog = self.builder.get_object('help-dialog')
+
 
         # some ui elements
         self.input_image_drop = self.builder.get_object('input-image-drop')
@@ -204,11 +205,9 @@ class DefudeGui(object):
 
 
     def show(self):
-        self.about_window.set_title('About')
         self.main_window.show_all()
-        self.about_window.show_all()
         Gtk.main()
-    
+
     def onDestroy(self, *args):
         Gtk.main_quit()
         self._cleanup()
@@ -220,7 +219,12 @@ class DefudeGui(object):
         self._prev_page()
     
     def onAbout(self, *args):
-        self.about_window.show_all()
+        self.about_dialog.run()
+        self.about_dialog.hide()
+    
+    def onHelp(self, *args):
+        self.help_dialog.run()
+        self.help_dialog.hide()
 
     def onImagePickerSet(self, *args):
         input_file_name = args[0].get_filename()

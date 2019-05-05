@@ -20,7 +20,7 @@ def preprocess(img):
     # gray_img = cv2.cvtColor(denoised_img, cv2.COLOR_BGR2GRAY)
 
     # Sharpening
-    kernel = np.array([[-1,-1,-1], [-1,9,-1], [-1,-1,-1]])
+    kernel = np.array([[0,-1,0], [-1,5,-1], [0,-1,0]])
     sharpen_img = cv2.filter2D(denoised_img, -1, kernel)
 
     # Histogram Equalization
@@ -30,9 +30,9 @@ def preprocess(img):
     # equ_img = clahe.apply(sharpen_img)
 
     # Resizing
-    # resized_img = cv2.resize(sharpen_img, (512,256), cv2.INTER_AREA)
+    resized_img = cv2.resize(sharpen_img, (512,256), cv2.INTER_AREA)
 
-    prep_img = sharpen_img
+    prep_img = resized_img
     return prep_img
 
 # Run the preprocessing functions on a single image with before and after

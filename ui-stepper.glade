@@ -2,88 +2,6 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkWindow" id="about-window">
-    <property name="can_focus">False</property>
-    <property name="window_position">center-on-parent</property>
-    <property name="default_width">350</property>
-    <property name="default_height">-1</property>
-    <property name="gravity">center</property>
-    <child>
-      <placeholder/>
-    </child>
-    <child>
-      <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkImage" id="about-logo">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="pixbuf">assets/aperture-logo.png</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="padding">14</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">2</property>
-            <property name="margin_right">2</property>
-            <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Sythetic Defocusing using Unsupervised Monocular Depth Estimation &lt;/b&gt;&lt;/big&gt;</property>
-            <property name="use_markup">True</property>
-            <property name="justify">center</property>
-            <property name="wrap">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="padding">10</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="about-version">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">v1.0.1</property>
-            <attributes>
-              <attribute name="size" value="13000"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="padding">11</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="about-text">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">10</property>
-            <property name="margin_right">10</property>
-            <property name="label" translatable="yes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lobortis finibus nibh a auctor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam ut posuere felis. In non lectus in lectus congue varius sit amet quis dolor. Morbi sed scelerisque risus. Phasellus a interdum dolor, posuere pellentesque massa. Donec iaculis sagittis aliquet. Sed mollis magna eget tellus efficitur, vel consectetur purus molestie. Ut volutpat dapibus ligula ut dignissim.</property>
-            <property name="justify">center</property>
-            <property name="wrap">True</property>
-            <property name="width_chars">40</property>
-            <property name="max_width_chars">40</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkFileFilter" id="imagefilefilter">
     <patterns>
       <pattern>*.png</pattern>
@@ -858,10 +776,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkImage" id="next-image">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-go-forward</property>
   </object>
 </interface>

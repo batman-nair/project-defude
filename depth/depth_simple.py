@@ -9,7 +9,10 @@ import time
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
 import cv2
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
+
 
 from depth_model import *
 from depth_dataloader import *

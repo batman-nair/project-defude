@@ -63,6 +63,7 @@ class DefudeGui(object):
             'resizing': 'Loading the image...'
         }
         self.DEFAULT_INPUT_IMAGE = 'assets/drag-and-drop.png'
+        self.WINDOW_TITLE = 'Synthetic Defocusing and Depth Estimation Tool'
 
         # state variables
         self.INPUT_IMAGE_PATH = None
@@ -189,13 +190,28 @@ class DefudeGui(object):
             cv2.imwrite(dialog.get_filename(),img)
         dialog.destroy()
 
+    def _cleanup(self):
+        file_list = (
+            self.DEFOCUS_IMAGE_PATH,
+            self.DEPTH_MAP_PATH,
+        )
+        
+        for file in file_list:
+            if file:
+                if os.path.isfile(file):
+                    os.remove(file)
+
+
     def show(self):
+        self.main_window.set_title(self.WINDOW_TITLE)
+        self.about_window.set_title('About')
         self.main_window.show_all()
-        # self.about_window.show_all()
+        self.about_window.show_all()
         Gtk.main()
     
     def onDestroy(self, *args):
         Gtk.main_quit()
+        self._cleanup()
 
     def onStartPageNext(self, *args):
         self._next_page()
@@ -240,18 +256,6 @@ class DefudeGui(object):
     def onResultSave(self, *args):
         self._save(self.DEFOCUS_IMAGE_PATH)
 
-    def __del__(self):
-        '''clean up'''
-
-        file_list = (
-            self.DEFOCUS_IMAGE_PATH,
-            self.DEPTH_MAP_PATH,
-        )
-        
-        for file in file_list:
-            if file:
-                if os.path.isfile(file):
-                    os.remove(file)
 
 
 

@@ -7,6 +7,7 @@
     <property name="window_position">center-on-parent</property>
     <property name="default_width">350</property>
     <property name="default_height">-1</property>
+    <property name="gravity">center</property>
     <child>
       <placeholder/>
     </child>
@@ -80,19 +81,6 @@
             <property name="position">3</property>
           </packing>
         </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkWindow" id="help-window">
-    <property name="can_focus">False</property>
-    <child>
-      <placeholder/>
-    </child>
-    <child>
-      <object class="GtkLayout">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="width">246</property>
       </object>
     </child>
   </object>
@@ -232,53 +220,6 @@
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">4</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="margin_left">10</property>
-                    <property name="margin_right">10</property>
-                    <property name="homogeneous">True</property>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="label">gtk-help</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="halign">start</property>
-                        <property name="use_stock">True</property>
-                        <property name="always_show_image">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="label">gtk-about</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="halign">end</property>
-                        <property name="use_stock">True</property>
-                        <property name="always_show_image">True</property>
-                        <signal name="clicked" handler="onAbout" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">5</property>
                   </packing>
                 </child>
               </object>

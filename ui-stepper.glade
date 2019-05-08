@@ -583,6 +583,9 @@
     <property name="default_width">320</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">main-window</property>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can_focus">False</property>
@@ -659,7 +662,7 @@
               <object class="GtkLabel" id="about-text1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lobortis finibus nibh a auctor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam ut posuere felis. In non lectus in lectus congue varius sit amet quis dolor. Morbi sed scelerisque risus. Phasellus a interdum dolor, posuere pellentesque massa. Donec iaculis sagittis aliquet. Sed mollis magna eget tellus efficitur, vel consectetur purus molestie. Ut volutpat dapibus ligula ut dignissim.</property>
+                <property name="label" translatable="yes">Synthetic Defocusing and Depth Estimation Tool allows you to generate a shallow depth-of-field image from an all-in-focus RGB image. The tool generates a depth map from an input image of your choice. You can click on the image to create a point of focus. </property>
                 <property name="justify">center</property>
                 <property name="wrap">True</property>
                 <property name="width_chars">40</property>
@@ -709,13 +712,15 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">0</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="margin_left">5</property>
+            <property name="margin_right">5</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkLabel">
@@ -750,15 +755,25 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In &lt;b&gt;dignissim&lt;/b&gt; lacus quis facilisis faucibus.
+                <property name="label">1. Click &lt;b&gt;Next&lt;/b&gt; to begin.
 
-2. In dignissim lacus quis &lt;b&gt;facilisis&lt;/b&gt; faucibus.
+2. Browse  to the required image or Drag and Drop the image file.
 
-3. Lorem ipsum &lt;i&gt;dolor&lt;/i&gt;  sit amet, consectetur  lacus quis facilisis faucibus.
+3. Click &lt;b&gt;Delete&lt;/b&gt; if you wish to change the image selected. Otherwise, click &lt;b&gt;Continue&lt;/b&gt;.
 
-4. Consectetur &lt;b&gt;adipiscing&lt;/b&gt; elit. In &lt;s&gt;dignissim&lt;/s&gt; lacus quis facilisis.</property>
+4. If you wish to save the depth map, click &lt;b&gt;Save As&lt;/b&gt;.
+
+5. Click &lt;b&gt;Next&lt;/b&gt;  to continue.
+
+6. Click on the region in the image which you want to focus.
+
+7.  Save the defocused image using &lt;b&gt;Save As&lt;/b&gt; button.
+
+8. Choose the desired location to save and hit &lt;b&gt;Save&lt;/b&gt;.</property>
                 <property name="use_markup">True</property>
                 <property name="wrap">True</property>
+                <property name="width_chars">35</property>
+                <property name="max_width_chars">0</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -771,7 +786,7 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">0</property>
           </packing>
         </child>
       </object>

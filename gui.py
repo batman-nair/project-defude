@@ -210,7 +210,7 @@ class DefudeGui(object):
 
     def onDestroy(self, *args):
         Gtk.main_quit()
-        self._cleanup()
+        # self._cleanup()
 
     def onStartPageNext(self, *args):
         self._next_page()
@@ -267,6 +267,3 @@ if __name__ == '__main__':
     checkpoint_path = '/home/arjun/works/project-defude/depth/trained_models/model_city2kitti_resnet'
     gui = DefudeGui(checkpoint_path)
     gui.show()
-
-
-

@@ -80,6 +80,7 @@ class DefocuserObject():
             final_image = np.uint8(final_image)
             # cv2.imshow("Final", final_image)
             cv2.imwrite(os.path.join(self.img_dir, self.img_name + "_defocus.png"), final_image)
+            cv2.imshow("image", final_image)
 
 
     def set_pof_from_coord(self, norm_x, norm_y):

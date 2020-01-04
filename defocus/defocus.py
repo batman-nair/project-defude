@@ -22,6 +22,7 @@ class DefocuserObject():
 
     def __init__(self, image_path = "../images/sample2.png", blur_method = "gaussian"):
         self.img_name = os.path.basename(image_path).split('.')[0]
+        self.img_ext = os.path.basename(image_path).split('.')[-1]
         self.img_dir = os.path.dirname(image_path)
         self.blur_method = blur_method
 
@@ -37,7 +38,7 @@ class DefocuserObject():
 
 
         self.depth_data = np.load(os.path.join(self.img_dir, self.img_name + "_disp.npy"))
-        self.img = cv2.imread(os.path.join(self.img_dir, self.img_name + ".png"))
+        self.img = cv2.imread(os.path.join(self.img_dir, self.img_name + "." + self.img_ext))
         self.blur_imgs = []
 
         # The blurred versions of the images can be precalculated

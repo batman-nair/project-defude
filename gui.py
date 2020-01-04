@@ -13,7 +13,7 @@ class DefudeGui(object):
 
     def __init__(self,checkpoint_path,glade_file='ui-stepper.glade'):
         self.builder = Gtk.Builder()
-        
+
         # load the glade file describing the UI
         self.builder.add_from_file(glade_file)
 
@@ -49,9 +49,9 @@ class DefudeGui(object):
             'pick-pof',
             'result-page'
         )
-        
+
         self.pages = tuple(
-            self.builder.get_object(page_id) 
+            self.builder.get_object(page_id)
             for page_id in page_ids
         )
 
@@ -80,14 +80,14 @@ class DefudeGui(object):
             Gtk.DestDefaults.ALL,
             # enforce target
             [Gtk.TargetEntry.new('text/plain',Gtk.TargetFlags(4), 129)],
-            Gdk.DragAction.COPY    
+            Gdk.DragAction.COPY
         )
 
     def _next_page(self):
         if self.CURRENT_STACK_PAGE < len(self.pages) - 1:
             self.CURRENT_STACK_PAGE += 1
             self.step_stack.set_visible_child(self.pages[self.CURRENT_STACK_PAGE])
-    
+
     def _prev_page(self):
         if self.CURRENT_STACK_PAGE > 0:
             self.CURRENT_STACK_PAGE -= 1
@@ -117,8 +117,8 @@ class DefudeGui(object):
         thread = threading.Thread(target=partial(self._set_input_image_impl,img_path))
         thread.daemon = True
         thread.start()
-        
-    
+
+
     def _unset_input_image(self):
         self.INPUT_IMAGE_PATH = None
         self.INPUT_IMAGE_SIZE = None
@@ -135,8 +135,8 @@ class DefudeGui(object):
             ar = h / float(w)
             size = (self.IMAGE_WIDTH,int(self.IMAGE_WIDTH*ar))
 
-        resized = img.scale_simple(size[0],size[1],GdkPixbuf.InterpType.BILINEAR) 
-        
+        resized = img.scale_simple(size[0],size[1],GdkPixbuf.InterpType.BILINEAR)
+
         if return_size:
             return resized,size[0],size[1]
 
@@ -145,10 +145,10 @@ class DefudeGui(object):
     def _estimate_depthmap_impl(self):
         os.system("python ./depth/depth_simple.py --checkpoint_path " + self.CHECKPOINT_PATH + " --image_path " + self.INPUT_IMAGE_PATH)
         self.DEPTH_MAP_PATH = os.path.join(os.path.dirname(self.INPUT_IMAGE_PATH), os.path.basename(self.INPUT_IMAGE_PATH).split('.')[0]) + '_disp.png'
-        
+
         depthmap_img = self._resize_image(self.DEPTH_MAP_PATH)
         self.depth_map_image.set_from_pixbuf(depthmap_img)
-        
+
         self.input_image_spinner.stop()
         self.input_image_status_line.set_label(self.STATUS_MESSAGES['idle'])
         self._next_page()
@@ -197,7 +197,7 @@ class DefudeGui(object):
             self.DEFOCUS_IMAGE_PATH,
             self.DEPTH_MAP_PATH,
         )
-        
+
         for file in file_list:
             if file:
                 if os.path.isfile(file):
@@ -217,11 +217,11 @@ class DefudeGui(object):
 
     def onBack(self, *args):
         self._prev_page()
-    
+
     def onAbout(self, *args):
         self.about_dialog.run()
         self.about_dialog.hide()
-    
+
     def onHelp(self, *args):
         self.help_dialog.run()
         self.help_dialog.hide()
@@ -229,7 +229,7 @@ class DefudeGui(object):
     def onImagePickerSet(self, *args):
         input_file_name = args[0].get_filename()
         self._set_input_image(input_file_name)
-    
+
     def onImageDrop(self, *args):
         filename = args[4].get_text()[7:-1]
         self._set_input_image(filename)
@@ -264,7 +264,7 @@ class DefudeGui(object):
 
 
 if __name__ == '__main__':
-    checkpoint_path = '/home/nm/Projects/project-defude/model'
+    checkpoint_path = '/home/arjun/works/project-defude/depth/trained_models/model_city2kitti_resnet'
     gui = DefudeGui(checkpoint_path)
     gui.show()
 

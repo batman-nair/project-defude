@@ -10,12 +10,13 @@ Tensorflow implementation of unsupervised single image depth prediction using a 
 CVPR 2017
 
 For more details:
-[github](http://visual.cs.ucl.ac.uk/pubs/monoDepth/)
-[project page](http://visual.cs.ucl.ac.uk/pubs/monoDepth/)
+[github](http://visual.cs.ucl.ac.uk/pubs/monoDepth/),
+[project page](http://visual.cs.ucl.ac.uk/pubs/monoDepth/),
 [arXiv](https://arxiv.org/abs/1609.03677)
 
 
-This code is a minimal cut down version of the original monodepth code using OpenCV backend.
+
+This code is a minimal stripped down version of the original monodepth code using OpenCV backend.
 
 All ownership and rights to this code and it's implementation belong to the original project owners and their organization.
 Please check the [original repository](https://github.com/mrharicot/monodepth) and their [LICENSE](https://github.com/mrharicot/monodepth/blob/master/LICENSE) file for more information.

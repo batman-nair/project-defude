@@ -1,3 +1,17 @@
+# Copyright UCL Business plc 2017. Patent Pending. All rights reserved.
+#
+# The MonoDepth Software is licensed under the terms of the UCLB ACP-A licence
+# which allows for non-commercial use only, the full terms of which are made
+# available in the LICENSE file.
+#
+# For any other use of the software not covered by the UCLB ACP-A Licence,
+# please contact info@uclb.com
+
+"""Fully convolutional model for monocular depth estimation
+    by Clement Godard, Oisin Mac Aodha and Gabriel J. Brostow
+    http://visual.cs.ucl.ac.uk/pubs/monoDepth/
+"""
+
 from __future__ import absolute_import, division, print_function
 from collections import namedtuple
 
@@ -294,4 +308,3 @@ class DepthModel(object):
                 tf.summary.scalar('lr_loss_' + str(i), self.lr_left_loss[i] + self.lr_right_loss[i], collections=self.model_collection)
                 tf.summary.image('disp_left_est_' + str(i), self.disp_left_est[i], max_outputs=4, collections=self.model_collection)
                 tf.summary.image('disp_right_est_' + str(i), self.disp_right_est[i], max_outputs=4, collections=self.model_collection)
-

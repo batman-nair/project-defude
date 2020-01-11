@@ -30,11 +30,11 @@ class DefocuserObject():
         # All the functions takes 2 arguments: the image and the kernel size to be used in the function
         # As the kernel size increases the amount of blur increases
         self.blur_function = {
-                'avg_blur': lambda img,ker_size: cv2.blur(img, (ker_size,ker_size)),
-                'gaussian': lambda img,ker_size: cv2.GaussianBlur(img, (ker_size,ker_size), 0),
-                'median': lambda img,ker_size: cv2.medianBlur(img, ker_size),
-                'bilateral': lambda img,ker_size: cv2.bilateralFilter(img, ker_size, 75, 75),
-                }
+            'avg_blur': lambda img,ker_size: cv2.blur(img, (ker_size,ker_size)),
+            'gaussian': lambda img,ker_size: cv2.GaussianBlur(img, (ker_size,ker_size), 0),
+            'median': lambda img,ker_size: cv2.medianBlur(img, ker_size),
+            'bilateral': lambda img,ker_size: cv2.bilateralFilter(img, ker_size, 75, 75),
+        }
 
 
         self.depth_data = np.load(os.path.join(self.img_dir, self.img_name + "_disp.npy"))
@@ -63,24 +63,24 @@ class DefocuserObject():
 
     # The depth map is normalized around the point of focus after which the defocusing of the image is done by sectioning and masking
     def defocus_with_pof(self):
-            print("Point of focus: ", self.point_of_focus)
-            self.normalize_pof()
-            print("Normalized depth data around point of focus")
+        print("Point of focus: ", self.point_of_focus)
+        self.normalize_pof()
+        print("Normalized depth data around point of focus")
 
-            section_size = 1 / len(self.blur_imgs)
-            final_image = np.zeros(self.img.shape)
+        section_size = 1 / len(self.blur_imgs)
+        final_image = np.zeros(self.img.shape)
 
-            for index, blur_img in enumerate(self.blur_imgs):
-                mask = (index*section_size <= self.norm_depth_data) & (self.norm_depth_data < (index+1)*section_size)
-                masked_img = copy.deepcopy(blur_img)
-                # Applying mask on copy of blurred image
-                masked_img[mask==0] = [0, 0, 0]
-                final_image = final_image + masked_img
+        for index, blur_img in enumerate(self.blur_imgs):
+            mask = (index*section_size <= self.norm_depth_data) & (self.norm_depth_data < (index+1)*section_size)
+            masked_img = copy.deepcopy(blur_img)
+            # Applying mask on copy of blurred image
+            masked_img[mask==0] = [0, 0, 0]
+            final_image = final_image + masked_img
 
-            final_image = np.uint8(final_image)
-            # cv2.imshow("Final", final_image)
-            cv2.imwrite(os.path.join(self.img_dir, self.img_name + "_defocus.png"), final_image)
-            cv2.imshow("image", final_image)
+        final_image = np.uint8(final_image)
+        # cv2.imshow("Final", final_image)
+        cv2.imwrite(os.path.join(self.img_dir, self.img_name + "_defocus.png"), final_image)
+        cv2.imshow("Project Defude", final_image)
 
 
     def set_pof_from_coord(self, norm_x, norm_y):
@@ -92,11 +92,14 @@ class DefocuserObject():
     # Creates a window to display the original image
     # The callback function is attached to this window
     def view_image_for_blur(self):
-        cv2.namedWindow('image')
-        cv2.setMouseCallback('image', self.depth_callback)
+        cv2.namedWindow("Project Defude", flags = (cv2.WINDOW_GUI_NORMAL | cv2.WINDOW_AUTOSIZE))
+        cv2.setMouseCallback("Project Defude", self.depth_callback)
 
-        cv2.imshow("image", self.img)
-        cv2.waitKey(0)
+        cv2.imshow("Project Defude", self.img)
+
+        # cv2.namedWindow("Project Defude", flags=cv2.WINDOW_GUI_NORMAL)
+        while(cv2.waitKey() != 27):
+            pass
         cv2.destroyAllWindows()
 
     # Generated different blurred versions of the original image

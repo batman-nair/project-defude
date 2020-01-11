@@ -261,9 +261,13 @@ class DefudeGui(object):
         self._save(self.DEFOCUS_IMAGE_PATH)
 
 
-
-
 if __name__ == '__main__':
-    checkpoint_path = '/home/arjun/works/project-defude/depth/trained_models/model_city2kitti_resnet'
-    gui = DefudeGui(checkpoint_path)
+    parser = argparse.ArgumentParser(description='Synthetic Defocussing Using Depth Estimation')
+
+    parser.add_argument('--model_path', type=str, help='path to saved model', required=True)
+
+    args = parser.parse_args()
+    model_path = os.path.abspath(args.model_path)
+
+    gui = DefudeGui(model_path)
     gui.show()

@@ -29,6 +29,8 @@ python main.py --model_path /path/to/model --image_path /path/to/image
 
 The image will load up. Clicking anywhere sets that as the point of focus, regenerating the image.
 
+*I've actually pushed in the depth data for the sample images, so you can actually run the program without tensorflow or a trained model for the sample images :)*
+
 
 ### To use our nice GUI
 Install dependencies from requirements.txt

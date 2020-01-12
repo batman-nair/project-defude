@@ -4,7 +4,7 @@ import os
 parser = argparse.ArgumentParser(description='Synthetic Defocussing Using Depth Estimation')
 
 parser.add_argument('--image_path', type=str, help='path to input image', default='images/sample2.png')
-parser.add_argument('--model_path', type=str, help='path to saved model', required=True)
+parser.add_argument('--model_path', type=str, help='path to saved model', default='blah')
 parser.add_argument('--blur_method', type=str, help='the type of blur to be applied', default='gaussian')
 
 args = parser.parse_args()

@@ -53,7 +53,7 @@ Their trained models give way better results than what we can so we are using th
 The depth estimation code we have is a minimal stripped down version just to run the model.
 
 
-# The Team
+## The Team
 This was done as a final year project by [Haritha Paul](https://github.com/haritha1997), [Navin Mohan](https://github.com/nvnmo), [Roshan V](https://github.com/ros-han) and me.
 
 Leave a star if you liked the project. :)

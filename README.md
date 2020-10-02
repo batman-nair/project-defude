@@ -39,6 +39,7 @@ Run the gui version as
 ```sh
 python gui.py --model_path /path/to/model
 ```
+Gui version requires some additional packages. Install as necessary.
 
 ## Depth Estimation
 We have used the method based on the paper Unsupervised Monocular Depth Estimation with Left-Right Consistency. You can find more about their amazing paper [here](http://visual.cs.ucl.ac.uk/pubs/monoDepth/).

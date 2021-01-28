@@ -18,7 +18,7 @@ You'll need to setup Tensorflow v1 and OpenCV for the bare minimum run.
 
 Install a trained model for depth estimation.
 ```sh
-sh ./depth/get_model.sh depth/
+sh ./depth/get_model.sh model_kitti depth/
 ```
 This will download the model which will give the best results for the sample in the repo.
 

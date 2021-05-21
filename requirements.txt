@@ -9,4 +9,4 @@ PyGObject==3.32.1
 pyparsing==2.4.0
 python-dateutil==2.8.0
 six==1.12.0
-tensorflow==1.15.4
+tensorflow==2.5.0

@@ -57,6 +57,6 @@ The depth estimation code we have is a minimal stripped down version just to run
 
 
 ## The Team
-This was done as a final year project by [Haritha Paul](https://github.com/haritha1997), [Navin Mohan](https://github.com/nvnmo), [Roshan V](https://github.com/ros-han) and me.
+This was done as a final year project by [Haritha Paul](https://github.com/haritha1997), [Navin Mohan](https://github.com/navin-mohan), [Roshan V](https://github.com/ros-han) and me.
 
 Leave a star if you liked the project. :)

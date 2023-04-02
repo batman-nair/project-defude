@@ -16,6 +16,12 @@ Stitch the different blurred images to create the final image with the selected 
 ## How to run
 You'll need to setup Tensorflow v1 and OpenCV for the bare minimum run.
 
+> **_NOTE:_** Setting up Tensorflow v1 can be tricky, hence it is recommeneded to use a prebuilt docker image.
+> ```bash
+> docker pull tensorflow/tensorflow:1.0.0-py3
+> ```
+> GPU specific images are also available.
+
 Install a trained model for depth estimation.
 ```sh
 sh ./depth/get_model.sh model_kitti depth/
